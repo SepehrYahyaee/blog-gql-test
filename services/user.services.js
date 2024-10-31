@@ -1,10 +1,10 @@
 import prisma from "../db.js";
 
 export const userService = {
-    insertUser(userName, password) {
+    insertUser(user_name, password) {
         return prisma.user.create({
             data: {
-                user_name: userName,
+                user_name,
                 password
             }
         });
@@ -19,11 +19,14 @@ export const userService = {
             }
         });
     },
-    retrieveUserByUserName(userName) {
-        return prisma.user.findUnique({
+    modifyUser(id, password) {
+        return prisma.user.update({
             where: {
-                user_name: userName
+                id
+            },
+            data: {
+                password
             }
-        });
+        })
     }
 };

@@ -10,12 +10,17 @@ ${Post}
 ${Comment}
 
 type Query {
-    users: [User]
-    user(id: ID!): User
+    users: [User!]!
+    user(id: ID!): User!
+    posts: [Post!]!
+    post: Post!
+    commentsOnPost(postId: ID!): [Comment!]!
+    comment(commentId: ID!): Comment!
 }
 
 type Mutation {
     register(user: UserInput!): User
+    updateUser(id: ID!, password: String!): User
 }
 
 input UserInput {

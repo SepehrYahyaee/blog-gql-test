@@ -1,15 +1,13 @@
 import prisma from "../db.js";
 import { hash } from "../providers/index.js";
+import { userService, postService } from "../services/index.js";
 
 async function main() {
-    await prisma.user.deleteMany();
+    // await prisma.user.deleteMany();
+    await prisma.post.deleteMany();
 
-    await prisma.user.create({
-        data: {
-            user_name: "test",
-            password: await hash("123"),
-        }
-    })
+    // await userService.insertUser("test", await hash("123"));
+    await postService.insertPost();
 
     console.log("Seed Generated!");
 }

@@ -1,5 +1,4 @@
 import { userService } from "../../services/index.js";
-import { hash } from "../../providers/index.js";
 
 export const userResolvers = {
     async getAllUsers() {
@@ -9,12 +8,9 @@ export const userResolvers = {
         return await userService.retrieveUser(args.id);
     },
     async register(parent, args) {
-        const user = await userService.retrieveUserByUserName(args.user_name);
-
-        if (user) throw new Error("UserName already exists!");
-
-        const hashedPassword = await hash(args.password);
-
-        return await userService.insertUser(args.user_name, hashedPassword);
+        return await userService.insertUser(args.user.user_name, args.user.password);
+    },
+    async updateUser(parent, args) {
+        return await userService.modifyUser(args.id, args.password);
     }
 }
